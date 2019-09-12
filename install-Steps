@@ -1,0 +1,13 @@
+1.sh
+passwd user
+visudo
+comment out wheel nopass
+
+login with user
+copy 2.sh in /home/user
+
+run 2.sh with REGULAR user not with sudo
+$sh 2.sh
+
+need to yaourt thinkfan
+systemctl enable thinkfan

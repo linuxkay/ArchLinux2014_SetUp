@@ -1,0 +1,31 @@
+loadkeys us
+cfdisk /dev/sda
+mkswap /dev/sda3
+swapon /dev/sda3
+swapon -s
+mkfs.ext4 /dev/sda
+mkfs.ext4 /dev/sdb3
+mount /dev/sdb3 /mnt
+mkdir /mnt/boot
+mount /dev/sdb1 /mnt/boot
+vi /etc/pacman.d/mirrorlist
+pacstrap /mnt base base-devel
+pacstrap /mnt  grub-bios vim htop net-tools
+genfstab -p /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+vim /etc/locale.gen
+vim /etc/locale.conf
+locale-gen
+vim /etc/hostname
+vim /etc/vconsole.conf
+mkinitcpio -p linux
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sda
+passwd
+exit
+umount /mnt/boot
+umount /mnt
+swapoff /dev/sdb2
+reboot
